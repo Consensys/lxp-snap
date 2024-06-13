@@ -55,18 +55,25 @@ export async function handler(event: {
       };
     }
 
-    const [activations, pohStatus, openBlockScore, lxpBalance, lxpLBalance] =
-      await Promise.all([
-        getActivations(),
-        fetchPohStatus(address),
-        getOpenBlockScore(address.toLowerCase()),
-        isLineascan
-          ? fetchBalanceFromLineascan(LXP_CONTRACT_ADDRESS, address)
-          : Promise.resolve('0'),
-        isLineascan
-          ? fetchBalanceFromLineascan(LXP_L_CONTRACT_ADDRESS, address)
-          : Promise.resolve('0'),
-      ]);
+    const [
+      activations,
+      pohStatus,
+      openBlockScore,
+      lxpBalance,
+      lxpLBalance,
+      name,
+    ] = await Promise.all([
+      getActivations(),
+      fetchPohStatus(address),
+      getOpenBlockScore(address.toLowerCase()),
+      isLineascan
+        ? fetchBalanceFromLineascan(LXP_CONTRACT_ADDRESS, address)
+        : Promise.resolve('0'),
+      isLineascan
+        ? fetchBalanceFromLineascan(LXP_L_CONTRACT_ADDRESS, address)
+        : Promise.resolve('0'),
+      isLineascan ? fetchLineaEns(address.toLowerCase()) : undefined,
+    ]);
 
     return {
       statusCode: 200,
@@ -77,6 +84,7 @@ export async function handler(event: {
         openBlockScore,
         lxpBalance,
         lxpLBalance,
+        name,
       }),
     };
   }
@@ -100,6 +108,23 @@ async function getData(
       ...additionalHeaders,
       'Content-Type': 'application/json',
     },
+  });
+
+  if (!response.ok) {
+    console.error(`Call to ${url} failed with status ${response.status}`);
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function postData(url: string, data: Record<string, string>) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
   });
 
   if (!response.ok) {
@@ -192,5 +217,19 @@ async function fetchPohStatus(address: string) {
     return pohPayload.poh as boolean;
   } catch (e) {
     return false;
+  }
+}
+
+async function fetchLineaEns(address: string) {
+  try {
+    const res = await postData(
+      `https://api.studio.thegraph.com/query/69290/ens-linea-sepolia/v0.0.4`,
+      {
+        query: `query getNamesForAddress {domains(first: 1, where: {and: [{or: [{owner: \"${address}\"}, {registrant: \"${address}\"}, {wrappedOwner: \"${address}\"}]}, {parent_not: \"0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2\"}, {or: [{expiryDate_gt: \"1718459214\"}, {expiryDate: null}]}, {or: [{owner_not: \"0x0000000000000000000000000000000000000000\"}, {resolver_not: null}, {and: [{registrant_not: \"0x0000000000000000000000000000000000000000\"}, {registrant_not: null}]}]}]}) {...DomainDetailsWithoutParent}} fragment DomainDetailsWithoutParent on Domain {name}`,
+      },
+    );
+    return res.data.domains[0].name as string;
+  } catch (e) {
+    return undefined;
   }
 }

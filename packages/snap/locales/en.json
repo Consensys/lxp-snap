@@ -16,6 +16,7 @@
     "none": "There are no current activations",
     "one": "There is {count} active LXP activation"
   },
+  "lineaEns": "Linea ENS domain",
   "lxpAddress": {
     "heading": "LXP wallet address",
     "prompt": "Please enter the wallet address linked to your LXP"

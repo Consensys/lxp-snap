@@ -1,5 +1,5 @@
 const snapId = 'npm:@consensys/linea-voyager';
-const snapVersion = '^0.8.0';
+const snapVersion = '^0.9.0';
 let isAccountConnected = false;
 
 const isLatestVersion = (installedVersion) => {

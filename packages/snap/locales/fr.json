@@ -16,6 +16,7 @@
     "none": "Il n'y a pas d'activation active",
     "one": "Il y a {count} activation LXP active"
   },
+  "lineaEns": "Domaine Linea ENS",
   "lxpAddress": {
     "heading": "Adresse du portefeuille LXP",
     "prompt": "Veuillez saisir l'adresse de votre wallet lié à vos LXP"

@@ -28,6 +28,8 @@ export async function renderMainUi(myAccount: string) {
   const lxpLBalance = snapState?.myLxpLBalance ?? 0;
   const openBlockScore = snapState?.myOpenBlockScore ?? 0;
   const activations = snapState?.activations ?? [];
+  const name = snapState?.myLineaEns ?? '';
+
   const captions = snapState?.captions;
 
   const labelBalance = captions?.balance;
@@ -35,6 +37,7 @@ export async function renderMainUi(myAccount: string) {
   const labelPendingLxpLBalance = captions?.pendingBalanceLxpL;
   const labelAddress = captions?.address;
   const labelPohStatus = captions?.pohStatus;
+  const labelLineaEns = captions?.lineaEns;
 
   const pohStatus = `${
     snapState?.myPohStatus
@@ -83,6 +86,10 @@ export async function renderMainUi(myAccount: string) {
         `${addressToSetText} [${addressToSetLink}](https://voyager-snap.linea.build).`,
       ),
     );
+  }
+
+  if (name && name !== '') {
+    myData.push(row(labelLineaEns, text(name)));
   }
 
   const help = captions?.help as string;

@@ -16,6 +16,7 @@
     "none": "No hay activas activaciones de LXP",
     "one": "Hay {count} activacion de LXP activa"
   },
+  "lineaEns": "Dominion Linea ENS",
   "lxpAddress": {
     "heading": "Cuenta que usas para LXP",
     "prompt": "Ingresa tu cuenta para ver tu balance"
