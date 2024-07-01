@@ -6,7 +6,9 @@
     "notVerified": "Non vérifié"
   },
   "lxp": "Vous avez {count} LXP",
-  "balance": "Quantité LXP",
+  "balance": "Balance LXP",
+  "balanceLxpL": "Balance LXP-L",
+  "pendingBalanceLxpL": "LXP-L en attente",
   "address": "Adresse",
   "pohStatus": "Statut POH",
   "activations": {
@@ -15,19 +17,20 @@
     "one": "Il y a {count} activation LXP active"
   },
   "lxpAddress": {
-    "heading": "Adresse du portefeuille Linea XP",
+    "heading": "Adresse du portefeuille LXP",
     "prompt": "Veuillez saisir l'adresse de votre wallet lié à vos LXP"
   },
   "nextSteps": {
     "heading": "Merci d'avoir installé le Snap Linea Voyager",
-    "body": "Ensuite, définissez votre adresse avec le [site web](https://voyager-snap.linea.build/) pour suivre votre solde Linea XP. À tout moment, vous pouvez ouvrir le menu Snaps et cliquer sur LXP pour voir votre solde, votre statut de POH, et les activations actuelles."
+    "body": "Ensuite, définissez votre adresse avec le [site web](https://voyager-snap.linea.build/) pour suivre votre solde LXP. À tout moment, vous pouvez ouvrir le menu Snaps et cliquer sur LXP pour voir votre solde, votre statut de POH, et les activations actuelles."
   },
   "noAddress": {
     "toSetText": "Pour votre votre balance de LXP et votre statut de POH,",
     "toSetLink": "commencez par définir votre adresse"
   },
   "help": "Votre balance de LXP ne montre que les drops onchain terminés. Elle n'inclut pas les activations en attente de drops.",
-  "viewBalance": "Voir votre balance sur Lineascan",
+  "viewBalance": "Voir votre balance de LXP sur Lineascan",
+  "viewLxpLBalance": "Voir votre balance de LXP-L sur Lineascan",
   "completePOH": "Réalisez votre POH",
   "exploreAll": "Explorez les Activations Linea",
   "errors": {

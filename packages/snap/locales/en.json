@@ -7,6 +7,8 @@
   },
   "lxp": "You have {count} LXP",
   "balance": "LXP Balance",
+  "balanceLxpL": "LXP-L Balance",
+  "pendingBalanceLxpL": "Pending LXP-L",
   "address": "Address",
   "pohStatus": "POH Status",
   "activations": {
@@ -15,19 +17,20 @@
     "one": "There is {count} active LXP activation"
   },
   "lxpAddress": {
-    "heading": "Linea XP wallet address",
+    "heading": "LXP wallet address",
     "prompt": "Please enter the wallet address linked to your LXP"
   },
   "nextSteps": {
     "heading": "Thank you for installing the Linea Voyager Snap",
-    "body": "Next, set your address with the [companion site](https://voyager-snap.linea.build/) to track your Linea XP balance. At any time you can open the Snaps menu and click on LXP to view your balance, Proof of Humanity status, and current activations."
+    "body": "Next, set your address with the [companion site](https://voyager-snap.linea.build/) to track your LXP balance. At any time you can open the Snaps menu and click on LXP to view your balance, Proof of Humanity status, and current activations."
   },
   "noAddress": {
     "toSetText": "To view your LXP balance and POH status,",
     "toSetLink": "first set your address"
   },
   "help": "Your LXP balance shows only completed onchain drops. It does not include activations pending drops.",
-  "viewBalance": "View balance on Lineascan",
+  "viewBalance": "View LXP balance on Lineascan",
+  "viewLxpLBalance": "View LXP-L balance on Lineascan",
   "completePOH": "Complete Proof of Humanity",
   "exploreAll": "Explore All Linea Activations",
   "errors": {

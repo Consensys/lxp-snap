@@ -1,36 +1,59 @@
+import { callGlobalApi } from './api';
+import type { UserData } from './types';
 import {
-  fetchBalanceFromLineascan,
-  fetchLxpActivations,
-  fetchPohStatus,
-} from './api';
-import { convertBalanceToDisplay } from './utils';
+  convertBalanceToDisplay,
+  LXP_CONTRACT_ADDRESS,
+  LXP_L_CONTRACT_ADDRESS,
+} from './utils';
 
 /**
- * Get the LXP balance for an address from Lineascan.
- * @param address - The address to get the LXP balance for.
- * @returns The LXP balance for the address.
+ * Fetch all the relevant data for the user.
+ * @param address - The address to get the data for.
+ * @param chainId - The chain ID.
+ * @returns The data for the user.
  */
-async function getLxpBalanceFromLineascan(address: string) {
-  let rawBalance;
-
+export async function getDataForUser(
+  address: string,
+  chainId: string,
+): Promise<UserData> {
   try {
-    rawBalance = await fetchBalanceFromLineascan(address);
-    return convertBalanceToDisplay(rawBalance);
+    const isLineascan = chainId !== '0xe708';
+    const [userData, lxpBalanceRaw, lxpLBalanceRaw] = await Promise.all([
+      callGlobalApi(address, isLineascan),
+      isLineascan ? 0 : getBalanceFromChain(LXP_CONTRACT_ADDRESS, address),
+      isLineascan ? 0 : getBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address),
+    ]);
+
+    userData.lxpBalance = isLineascan
+      ? convertBalanceToDisplay(userData.lxpBalance.toString())
+      : lxpBalanceRaw;
+    userData.lxpLBalance = isLineascan
+      ? convertBalanceToDisplay(userData.lxpLBalance.toString())
+      : lxpLBalanceRaw;
+
+    return userData;
   } catch (error) {
-    return 0;
+    return {
+      openBlockScore: 0,
+      lxpBalance: 0,
+      lxpLBalance: 0,
+      pohStatus: false,
+      activations: [],
+    };
   }
 }
 
 /**
- * Get the LXP balance for an address from the chain.
+ * Get token balance for an address from the chain.
+ * @param tokenAddress - The address of the token contract.
  * @param address - The address to get the LXP balance for.
  * @returns The LXP balance for the address.
  */
-async function getLxpBalanceFromChain(address: string) {
+async function getBalanceFromChain(tokenAddress: string, address: string) {
   const method = 'eth_call';
   const params = [
     {
-      to: '0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A',
+      to: tokenAddress,
       data: `0x70a08231000000000000000000000000${address.slice(2)}`,
     },
     'latest',
@@ -39,53 +62,4 @@ async function getLxpBalanceFromChain(address: string) {
   const rawBalance = await ethereum.request<string>({ method, params });
 
   return convertBalanceToDisplay(rawBalance);
-}
-
-/**
- * Get the LXP balance for an address.
- * @param address - The address to get the LXP balance for.
- * @param chainId - The chain ID.
- * @returns The LXP balance for the address.
- */
-export async function getLxpBalanceForAddress(
-  address: string,
-  chainId: string,
-) {
-  if (!address) {
-    return 0;
-  }
-  if (chainId === '0xe708') {
-    return getLxpBalanceFromChain(address);
-  }
-  return getLxpBalanceFromLineascan(address);
-}
-
-/**
- * Get the POH status for an address.
- * @param address - The address to get the POH status for.
- * @returns The POH status for the address.
- */
-export async function getPohStatus(address: string) {
-  if (!address) {
-    return false;
-  }
-
-  try {
-    const pohStatus = await fetchPohStatus(address);
-    return pohStatus.poh as boolean;
-  } catch (error) {
-    return false;
-  }
-}
-
-/**
- * Get the current activations.
- * @returns The current activations.
- */
-export async function getCurrentActivations() {
-  try {
-    return fetchLxpActivations();
-  } catch (error) {
-    return [];
-  }
 }

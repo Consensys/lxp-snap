@@ -1,7 +1,7 @@
 {
   "name": "@consensys/linea-voyager",
-  "version": "0.7.1",
-  "description": "View your minted Linea XP balance, POH status, and current activations.",
+  "version": "0.8.0",
+  "description": "View your minted LXP and LXP-L balances, POH status, and current activations.",
   "repository": {
     "type": "git",
     "url": "https://github.com/Consensys/linea-voyager-snap"
