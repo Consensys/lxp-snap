@@ -1,13 +1,13 @@
 {
-  "version": "0.7.1",
-  "description": "View your minted Linea XP balance, POH status, and current activations.",
+  "version": "0.9.0",
+  "description": "View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current activations.",
   "proposedName": "Linea Voyager",
   "repository": {
     "type": "git",
     "url": "https://github.com/Consensys/linea-voyager-snap"
   },
   "source": {
-    "shasum": "4KvbsHMOXo78Qvx0obc09pb80mgJgYoBMexokSLOkGw=",
+    "shasum": "ag9aJGWrHU8DQ+MtXQez579IagSFJM2HeHjfSwvLlKs=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

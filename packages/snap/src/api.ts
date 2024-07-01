@@ -1,31 +1,22 @@
-const getData = async (url: string) => {
-  const response = await fetch(url, {
-    method: 'GET',
-  });
+import type { UserData } from './types';
+
+export const callGlobalApi = async (
+  address: string,
+  isLineascan: boolean,
+): Promise<UserData> => {
+  const response = await fetch(
+    `https://lxp-snap-api.netlify.app/.netlify/functions/global-api?address=${address}&isLineascan=${isLineascan}`,
+    {
+      method: 'GET',
+    },
+  );
 
   if (!response.ok) {
-    console.error(`Call to ${url} failed with status ${response.status}`);
+    console.error(
+      `Call to the global API failed with status ${response.status}`,
+    );
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
 
   return response.json();
-};
-
-export const fetchBalanceFromLineascan = async (address: string) => {
-  const res = await getData(
-    `https://api.lineascan.build/api?module=account&action=tokenbalance&contractaddress=0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A&address=${address}&tag=latest`,
-  );
-
-  return res.result as string;
-};
-
-export const fetchPohStatus = async (address: string) => {
-  return await getData(`https://linea-xp-poh-api.linea.build/poh/${address}`);
-};
-
-export const fetchLxpActivations = async () => {
-  const result = await getData(
-    'https://lxp-snap-api.netlify.app/.netlify/functions/api',
-  );
-  return result.lxpActivations;
 };

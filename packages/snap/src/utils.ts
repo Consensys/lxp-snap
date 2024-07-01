@@ -2,6 +2,11 @@ import { ManageStateOperation } from '@metamask/snaps-sdk';
 
 import type { Captions, SnapState } from './types';
 
+export const LXP_CONTRACT_ADDRESS =
+  '0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A';
+export const LXP_L_CONTRACT_ADDRESS =
+  '0x96B3a15257c4983A6fE9073D8C91763433124B82';
+
 /**
  * Get the snap state.
  * @returns Snap State.

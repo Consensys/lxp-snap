@@ -1,5 +1,5 @@
 const snapId = 'npm:@consensys/linea-voyager';
-const snapVersion = '^0.7.1';
+const snapVersion = '^0.9.0';
 let isAccountConnected = false;
 
 const isLatestVersion = (installedVersion) => {
@@ -41,9 +41,9 @@ const MetaMaskFound = async (providerDetail) => {
     if (isLatestVersion(snaps[snapId].version)) {
       // Snap is the latest version, go to step 2
       snapAlreadyInstalled(provider);
-      return; 
+      return;
     }
-    // the user is not on the latest version of the Snap 
+    // the user is not on the latest version of the Snap
     buttonLabel = 'Update Snap';
   }
   // the Snap was not installed, proceed
@@ -80,8 +80,8 @@ const MetaMaskFound = async (providerDetail) => {
         }
       }
     } catch (error) {
-      const errorMessage = document.createElement('p'); 
-      errorMessage.textContent = `${error.message}`; 
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = `${error.message}`;
       document.getElementById('context').textContent = '';
       document.getElementById('context').appendChild(errorMessage);
     }

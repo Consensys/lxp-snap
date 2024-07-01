@@ -1,5 +1,3 @@
-import type { Address } from '@metamask/snaps-sdk';
-
 export type Captions = {
   locale: string;
   poh: {
@@ -9,6 +7,8 @@ export type Captions = {
   };
   lxp: string;
   balance: string;
+  balanceLxpL: string;
+  pendingBalanceLxpL: string;
   address: string;
   pohStatus: string;
   activations: {
@@ -16,6 +16,7 @@ export type Captions = {
     none: string;
     one: string;
   };
+  lineaEns: string;
   lxpAddress: {
     heading: string;
     prompt: string;
@@ -30,6 +31,7 @@ export type Captions = {
   };
   help: string;
   viewBalance: string;
+  viewLxpLBalance: string;
   completePOH: string;
   exploreAll: string;
   errors: {
@@ -61,16 +63,22 @@ export type Activation = {
   };
 };
 
+export type UserData = {
+  activations: Activation[];
+  pohStatus: boolean;
+  openBlockScore: number;
+  lxpBalance: number;
+  lxpLBalance: number;
+  name: string;
+};
+
 export type SnapState = {
   captions?: Captions;
   lxpAddress?: string;
   myLxpBalance?: number;
+  myLxpLBalance?: number;
+  myOpenBlockScore?: number;
   myPohStatus?: boolean;
   activations?: Activation[];
-};
-
-export type Payload = {
-  address: Address;
-  signedOn: number;
-  subject: string;
+  myLineaEns?: string;
 };

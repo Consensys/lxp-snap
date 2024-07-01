@@ -1,7 +1,7 @@
 {
   "name": "@consensys/linea-voyager",
-  "version": "0.7.1",
-  "description": "View your minted Linea XP balance, POH status, and current activations.",
+  "version": "0.9.0",
+  "description": "View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current activations.",
   "repository": {
     "type": "git",
     "url": "https://github.com/Consensys/linea-voyager-snap"
@@ -28,6 +28,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@metamask/abi-utils": "^2.0.2",
     "@metamask/snaps-sdk": "3.2.0",
     "@metamask/utils": "^8.4.0",
     "buffer": "^6.0.3"
